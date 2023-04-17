@@ -5,6 +5,11 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const router = require("./router.js");
+require("./config/database"); //-->Connects to the database
+
+//-- Routers --//
+const userRouter = require("./routes/userRouter");
+const partnerRouter = require("./routes/partnerRouter");
 
 //--defining the Express app--//
 const app = express();
@@ -24,11 +29,15 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use(router);
+app.use('/u', userRouter);
+app.use('/u/p', partnerRouter);
 
 //--defining an endpoint to return all ads--//
 app.get('/get-prompts', (req, res) => {
   res.send(prompts);
-});  
+}); 
+
+
 
 //--starting the server--//
 app.listen(3001, () => {
