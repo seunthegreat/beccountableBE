@@ -39,7 +39,7 @@ const createPartnerRequest = async (req, res, next) => {
   
       res.status(201).json({
         success: true,
-        message: 'Partner request created',
+        message: 'Partner request sent',
         partnerRequest: partnerRequest
       });
     } catch (err) {
@@ -140,6 +140,56 @@ const acceptPartnerRequest = async (req, res) => {
   }
 };
 
-  
+const declinePartnerRequest = async (req, res) => {
+  const requestId = req.params.requestId; //--> Get the ID of the request from the URL parameter
 
-module.exports = { createPartnerRequest, getPartnerRequests, acceptPartnerRequest }
+  try {
+    //-- Find the request by ID and update its status to "declined" --//
+    const partnerRequest = await PartnerRequest.findByIdAndUpdate(
+      requestId,
+      { status: 'declined' },
+    );
+
+    if (!partnerRequest) {
+      return res.status(404).json({
+        success: false,
+        message: 'Request not found',
+      });
+    }
+
+    // Send a success response
+    res.status(200).json({
+      message: `Partner request from ${partnerRequest.senderId} has been declined.`,
+    });
+  } catch (error) {
+    // Send an error response if something goes wrong
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const deletePartnerRequest = async (req, res) => {
+  const requestId = req.params.requestId; // Get the ID of the request from the URL parameter
+
+  try {
+    // Find the request by ID and delete it from the database
+    const partnerRequest = await PartnerRequest.findByIdAndDelete(requestId);
+
+    if (!partnerRequest) {
+      return res.status(404).json({
+        success: false,
+        message: 'Request not found',
+      });
+    }
+
+    // Send a success response
+    res.status(200).json({
+      message: `Partner request with ID ${requestId} has been deleted.`,
+    });
+  } catch (error) {
+    // Send an error response if something goes wrong
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+module.exports = { createPartnerRequest, getPartnerRequests, acceptPartnerRequest, declinePartnerRequest, deletePartnerRequest }
