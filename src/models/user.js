@@ -39,11 +39,13 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  role: {
-    type: String,
-    enum: ['user', 'admin'],
-    default: 'user'
-  },
+  roles: {
+    User: {
+        type: Number,
+        default: 1998
+    },
+    Admin: Number
+},
   created_at: {
     type: Date,
     default: Date.now
@@ -59,6 +61,9 @@ const userSchema = new mongoose.Schema({
   },
   interests: {
     type: String,
+  },
+  refreshToken: {
+    type:String,
   }
 });
 

@@ -1,49 +1,5 @@
 const User = require("../models/user");
 
-const generateMemberId = () => {
-  //-- Function to generate a unique memberId --//
-  const randomString = Math.random().toString(36).substring(2, 8);
-  return `MID-${randomString}`;
-}
-
-const createUser = async (req, res) => {
-  try {
-    const { email, password, name, avi, referralCode, bio } = req.body;
-  
-    //-- Check that all required fields are present --//
-    if (!email || !password || !name) {
-      return res.status(400).json({ error: 'Missing required fields' });
-    }
-
-    // Check if user already exists
-    const userExists = await User.findOne({ email });
-    if (userExists) {
-       return res.status(409).json({ error: 'User already exists' });
-    }
-  
-    //-- Create new user object with provided fields --//
-    const memberId = generateMemberId(); // Function to generate unique memberId
-    const user = new User({ email, password, name, avi, referralCode, bio, memberId });
-    //-- Save new user to database --//
-    const savedUser = await user.save();
-
-    //-- Create a new object with the necessary user fields --//
-    const userProfile = {
-      email: savedUser.email,
-      name: savedUser.name,
-      avi: savedUser.avi,
-      bio: savedUser.bio,
-      memberId: savedUser.memberId
-    };
-  
-    return res.status(201).json(userProfile);
-  } catch (error) {
-    //-- Handle any errors that occur during the try block with a 500 status code --//
-    return res.status(500).json({ message: 'Something went wrong', error: error});
-  }
-};
-
-
 const updateUser = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -125,5 +81,7 @@ const getUserProfile = async (req, res) => {
       return res.status(500).json({ error: 'Something went wrong' });
     }
   };
+
+
  
-module.exports = { createUser, deleteUser, updateUser, getAllUsers,  getUserProfile };
+module.exports = { deleteUser, updateUser, getAllUsers,  getUserProfile };
