@@ -73,8 +73,4 @@ const getMembersUserReports = async (req, res) => {
     }
 };
 
-
-  
-  
-
 module.exports = { getReportingTo, getMembersUserReports  }

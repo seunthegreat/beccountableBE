@@ -77,6 +77,7 @@ const getPartnerRequests = async (req, res) => {
   }
 };
 
+
 const getPendingPartnerRequests = async(req, res) => {
   const memberID = req.params.memberId; // Get the member ID from the request params
 

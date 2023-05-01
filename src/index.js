@@ -12,7 +12,7 @@ const credentials = require('./middleware/credentials');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const connectDB = require("./config/database"); 
-const PORT = process.env.PORT || 3500;
+const PORT = process.env.PORT || 3600;
 const verifyJWT = require("../src/middleware/verifiyJWT");
 
 connectDB(); //--> Connects to the database
@@ -37,6 +37,8 @@ const authRouter = require("./routes/authRouter");
 const refreshRouter = require("./routes/refresh");
 const userRouter = require("./routes/userRouter");
 const partnerRouter = require("./routes/partnerRouter");
+const goalRouter = require("./routes/goalRouter");
+const templateRouter = require("./routes/templateRouter");
 
 
 //-- adding Helmet to enhance your Rest API's security--//
@@ -45,9 +47,11 @@ app.use(helmet());
 app.use('/auth', authRouter);
 //app.use('/auth', refreshRouter);
 
-app.use(verifyJWT);
+// app.use(verifyJWT);
 app.use('/u', userRouter);
 app.use('/u/p', partnerRouter);
+app.use('/u/g', goalRouter);
+app.use('/u/t', templateRouter)
 
 app.use(errorHandler);
 
