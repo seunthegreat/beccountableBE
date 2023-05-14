@@ -47,7 +47,7 @@ app.use(helmet());
 app.use('/auth', authRouter);
 //app.use('/auth', refreshRouter);
 
-// app.use(verifyJWT);
+app.use(verifyJWT);
 app.use('/u', userRouter);
 app.use('/u/p', partnerRouter);
 app.use('/u/g', goalRouter);

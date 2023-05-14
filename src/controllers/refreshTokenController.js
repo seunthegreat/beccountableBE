@@ -6,9 +6,6 @@ const handleRefreshToken = async (req, res) => {
     const cookies = req.cookies;
     if (!cookies?.jwt) return res.sendStatus(401); 
     const refreshToken = cookies.jwt;
-    //res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
-
-    
     const foundUser = await User.findOne({ refreshToken })
 
     // Detected refresh token reuse!
@@ -31,12 +28,13 @@ const handleRefreshToken = async (req, res) => {
         async (err, decoded) => {
             if (err || foundUser.email !== decoded.UserInfo.email) return res.sendStatus(403);
 
+            console.log(decoded.UserInfo)
             // Refresh token was still valid
-            const roles = Object.values(foundUser.roles);
+            const roles = Object.values(decoded.UserInfo.roles);
             const accessToken = jwt.sign(
                 {
                     "UserInfo": {
-                      "email": foundUser.email,
+                      "email": decoded.UserInfo.email,
                       "roles": roles
                     }
                   },

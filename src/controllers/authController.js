@@ -61,18 +61,17 @@ const handleUserLogin = async (req, res) => {
     }
 
      //-- Checks if user exists --//
-     const user = await User.findOne({ email });
+     const user = await User.findOne({ email }).select('roles password email refreshToken');
+
      if (!user) return res.sendStatus(401); //--> Unauthorized user
 
      const passwordMatch = await bcrypt.compare(password, user.password);
      if (passwordMatch) {
-      
-      const roles = Object.values(user.roles).filter(Boolean);
         const accessToken = jwt.sign(
           {
             "UserInfo": {
               "email": user.email,
-              "roles": roles
+              "roles": user.roles
             }
           },
         process.env.ACCESS_TOKEN_SECRET,
@@ -83,7 +82,7 @@ const handleUserLogin = async (req, res) => {
         {
           "UserInfo": {
             "email": user.email,
-            "roles": roles
+            "roles": user.roles
           }
         },
         process.env.REFRESH_TOKEN_SECRET,
@@ -94,7 +93,7 @@ const handleUserLogin = async (req, res) => {
       await user.save();
       
       res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
-      res.json({ accessToken })
+      res.json({ result : { accessToken, refreshToken} })
      } else { 
       res.sendStatus(401);
      }
