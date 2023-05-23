@@ -1,5 +1,5 @@
 const allowedOrigins = [
-  'https://www.yoursite.com',
+  'https://e6c7-102-89-32-37.ngrok-free.app',
   'http://127.0.0.1:5500',
   'http://localhost:3600',
   'http://localhost:5173',
@@ -8,7 +8,7 @@ const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:3001',
   'https://beccountable-frontend.vercel.app',
-  'https://1b9d-102-89-34-110.ngrok-free.app'
+  'https://beccountable-web-service.onrender.com'
 ];
 
 module.exports = allowedOrigins;
