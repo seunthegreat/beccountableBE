@@ -7,7 +7,8 @@ const allowedOrigins = [
   'http://localhost:3002',
   'http://localhost:3000',
   'http://localhost:3001',
-  'https://beccountable-frontend.vercel.app'
+  'https://beccountable-frontend.vercel.app',
+  'https://1b9d-102-89-34-110.ngrok-free.app'
 ];
 
 module.exports = allowedOrigins;

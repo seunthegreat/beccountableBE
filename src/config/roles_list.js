@@ -1,9 +1,9 @@
 require('dotenv').config();
 
 const ROLES_LIST = {
-  "Admin": process.env.ADMIN,
-  "Creator": process.env.CREATOR,
-  "User": process.env.USER
+  "Admin": 2023,
+  "Creator": 2020,
+  "User": 1998
 };
 
 module.exports = ROLES_LIST

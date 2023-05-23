@@ -1,6 +1,5 @@
 const User = require("../models/user");
 const bcrypt = require('bcrypt');
-require('dotenv').config();
 
 const updateUser = async (req, res) => {
   try {
@@ -47,11 +46,11 @@ const getUserRole = (roles) => {
     return 'Unknown';
   }
   
-  if (roles.includes(process.env.ADMIN)) {
+  if (roles.includes(2023)) {
     return 'Admin';
-  } else if (roles.includes(process.env.CREATOR)) {
+  } else if (roles.includes(2020)) {
     return 'Creator';
-  } else if (roles.includes(process.env.USER)) {
+  } else if (roles.includes(1998)) {
     return 'User';
   } else {
     return 'Unknown';
@@ -104,7 +103,7 @@ const addCreator = async (req, res) => {
     //-- Create new user object with provided fields --//
     const memberId = generateMemberId(); // Function to generate unique memberId
     const hashedPwd = await bcrypt.hash(password,10);
-    const user = new User({ email, password: hashedPwd, name, memberId });
+    const user = new User({ email, password: hashedPwd, name, memberId, roles: [2020] });
     await user.save();
 
     return res.status(201).json({
