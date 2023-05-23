@@ -12,7 +12,7 @@ const generateMemberId = () => {
 
 const handleUserSignUp = async (req, res) => {
   try {
-    const { email, password, name, avi, referralCode, bio } = req.body;
+    const { email, password, name, avi, bio } = req.body;
   
     //-- Check that all required fields are present --//
     if (!email || !password || !name) {
@@ -28,23 +28,12 @@ const handleUserSignUp = async (req, res) => {
     //-- Create new user object with provided fields --//
     const memberId = generateMemberId(); // Function to generate unique memberId
     const hashedPwd = await bcrypt.hash(password,10);
-    const user = new User({ email, password: hashedPwd, name, avi, referralCode, bio, memberId  });
-    //-- Save new user to database --//
-    const savedUser = await user.save();
-
-    //-- Create a new object with the necessary user fields --//
-    const userProfile = {
-      email: savedUser.email,
-      name: savedUser.name,
-      avi: savedUser.avi,
-      bio: savedUser.bio,
-      memberId: savedUser.memberId,
-    };
+    const user = new User({ email, password: hashedPwd, name, avi, bio, memberId  });
+    await user.save();
   
     return res.status(201).json({
       success: true,
       message: `New user with ${email} was created`,
-      userProfile
     });
   } catch (error) {
     //-- Handle any errors that occur during the try block with a 500 status code --//
@@ -63,7 +52,7 @@ const handleUserLogin = async (req, res) => {
      //-- Checks if user exists --//
      const user = await User.findOne({ email }).select('roles password email refreshToken');
 
-     if (!user) return res.sendStatus(401); //--> Unauthorized user
+     if (!user) return res.status(401).json({ error: true, message: 'Email or password is incorrect' }); //--> Unauthorized user
 
      const passwordMatch = await bcrypt.compare(password, user.password);
      if (passwordMatch) {
@@ -75,7 +64,7 @@ const handleUserLogin = async (req, res) => {
             }
           },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: '30s'}
+        { expiresIn: '5m'}
       );
 
       const refreshToken = jwt.sign(

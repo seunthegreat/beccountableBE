@@ -88,6 +88,52 @@ const getTemplates = async (req, res) => {
       });
     }
 };
+
+const getTemplateSummary = async (req, res) => {
+  try {
+    const templates = await Template.find({});
+    const templateSummary = templates.map((template, index) => {
+      return {
+        id: index + 1, 
+        creatorName: template.creatorName,
+        creatorId: template.creatorId,
+        goal: template.goal.title,
+        results: template.goal.keyResults.length,
+        requirements: template.goal.requirements.length,
+        duration: template.goal.duration
+      };
+    });
+     res.status(200).json({
+      success: true,
+      message: 'Template summary fetched successfully',
+      templateSummary,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: 'Something went wrong',
+        error,
+      });
+    }
+};
+
+const getTemplatesByCreatorId = async (req, res) => {
+  try {
+    const { creatorId } = req.params;
+    const templates = await Template.find({ creatorId });
+    res.status(200).json({
+      success: true,
+      message: 'Templates fetched successfully',
+      templates,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Something went wrong',
+      error,
+    });
+  }
+};
   
 const deleteTemplate = async (req, res) => {
   try {
@@ -105,6 +151,11 @@ const deleteTemplate = async (req, res) => {
     }
 };
 
-
-
-module.exports = { createTemplate, deleteTemplate, updateTemplate, getTemplates }
+module.exports = { 
+  createTemplate, 
+  deleteTemplate,
+  updateTemplate, 
+  getTemplates,
+  getTemplateSummary,
+  getTemplatesByCreatorId
+}

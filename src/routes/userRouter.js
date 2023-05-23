@@ -1,17 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { deleteUser, updateUser, getAllUsers, handleUserLogin } = require('../controllers/userController');
+const { deleteUser, updateUser, getAllUsers, addCreator, getUserProfile } = require('../controllers/userController');
 
-const isAdmin = (req, res, next) => {
-  if (!req.user || !req.user.isAdmin) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
-  next();
-};
+const ROLES_LIST = require('../config/roles_list');
+const verifyRoles = require('../middleware/verifyRoles'); 
 
-router.get('/all-users', getAllUsers)
+
+router.get('/all-users', getAllUsers);
+router.get('/profile', getUserProfile);
 router.put('/update-profile/:id', updateUser);
-router.delete('/delete-user/:id', isAdmin, deleteUser);
+router.post('/add-creator',verifyRoles(ROLES_LIST.Admin), addCreator);
+router.delete('/delete-user/:memberId',verifyRoles(ROLES_LIST.Admin), deleteUser);
 
 
 module.exports = router;

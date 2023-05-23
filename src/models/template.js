@@ -98,21 +98,29 @@ const templateSchema = new mongoose.Schema({
     description: {
       type: String,
     },
-    requirements: {
-      type: [requirementSchema],
-      default: []
-    },
-    okrs: {
-      type: [okrSchema],
-      default: [],
-      required: true
-    },
     category: {
       type: String,
       required: true,
-      enum: ['General', 'Technology', 'Health', 'Career'],
+      enum: ['General', 'Technology', 'Health', 'Career', 'Marketing', 'Customer Service', 'Sales and Marketing'],
       default: 'General'
     },
+    objective: {
+      type: String,
+      required: true
+    },
+    keyResults: {
+      type: [String],
+      default: [],
+      required: true
+    },
+    requirements: {
+      type: [String],
+      default: []
+    },
+    duration: {
+      type: String,
+      required: true
+    }
   }
 });
 
