@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const bcrypt = require('bcrypt');
+require('dotenv').config();
 
 const updateUser = async (req, res) => {
   try {
@@ -46,11 +47,11 @@ const getUserRole = (roles) => {
     return 'Unknown';
   }
   
-  if (roles.includes(2023)) {
+  if (roles.includes(process.env.ADMIN)) {
     return 'Admin';
-  } else if (roles.includes(2020)) {
+  } else if (roles.includes(process.env.CREATOR)) {
     return 'Creator';
-  } else if (roles.includes(1998)) {
+  } else if (roles.includes(process.env.USER)) {
     return 'User';
   } else {
     return 'Unknown';
