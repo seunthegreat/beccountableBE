@@ -121,7 +121,8 @@ const getUserProfile = async (req, res) => {
     //-- Get the user ID from the request object --//
     const { email } = req;
     console.log(email)
-    const userProfile = await User.findOne({ email }).select('name memberId email avi bio roles subscription lastSeen -_id');;
+    const userProfile = await User.findOne({ email })
+      .select('name memberId email avi bio roles subscription lastSeen followersCount followingCount totalStakes totalPayouts -_id');;
 
     if (!userProfile) {
       return res.status(404).json({ error: 'User profile not found' });
@@ -133,4 +134,176 @@ const getUserProfile = async (req, res) => {
     }
 };
 
-module.exports = { deleteUser, updateUser, getAllUsers,  getUserProfile, addCreator };
+const followUser = async (req, res) => {
+  try {
+    const { memberId, followMemberId } = req.params;
+    const user = await User.findOne({ memberId });
+    const followUser = await User.findOne({ memberId: followMemberId });
+
+    if (!user || !followUser) {
+      return res.status(404).json({ 
+        success: false,
+        message: 'User not found' 
+      });
+    }
+
+    if (user.following.some((follow) => follow.memberId === followMemberId)) {
+      return res.status(400).json({ 
+        success: false,
+        message: 'Already following the user' 
+      });
+    }
+
+    user.following.push({
+      memberId: followMemberId,
+      name: followUser.name,
+      category: followUser.category,
+      avi: followUser.avi
+    });
+    user.followingCount++; // Increment the following count
+
+    followUser.followers.push({
+      memberId,
+      name: user.name,
+      category: user.category,
+      avi: user.avi
+    });
+    followUser.followerCount++; // Increment the follower count
+
+    await user.save();
+    await followUser.save();
+
+    res.status(200).json({ 
+      success: true, 
+      message: `Successfully followed ${followUser.name}` 
+    });
+  } catch (error) {
+    console.error('Error following user:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+// Controller to unfollow a user
+const unfollowUser = async (req, res) => {
+  try {
+    const { memberId, unfollowMemberId } = req.params;
+
+    const user = await User.findOne({ memberId });
+
+    const unfollowUser = await User.findOne({ memberId: unfollowMemberId });
+
+    if (!user || !unfollowUser) {
+      return res.status(404).json({ 
+        success: false, message: 'User not found' 
+      });
+    }
+
+    if (!user.following.some((follow) => follow.memberId === unfollowMemberId)) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Not following the user' 
+      });
+    }
+
+    user.following = user.following.filter((follow) => follow.memberId !== unfollowMemberId);
+    user.followingCount = user.followingCount > 0 ? user.followingCount - 1 : 0;
+
+    unfollowUser.followers = unfollowUser.followers.filter((follow) => follow.memberId !== memberId);
+    unfollowUser.followersCount = unfollowUser.followersCount > 0 ? unfollowUser.followersCount - 1 : 0;
+
+    await user.save();
+    await unfollowUser.save();
+
+    res.status(200).json({ success: true, message: `Successfully unfollowed ${unfollowUser.name}` });
+  } catch (error) {
+    console.error('Error unfollowing user:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+const recommendUsers = async (req, res) => {
+  try {
+    const { memberId } = req.query;
+
+    // Retrieve the user's following list
+    const user = await User.findOne({ memberId }).select('following.memberId');
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    const followedUsers = user.following.map((followingUser) => followingUser.memberId);
+
+    // Exclude the followed users and the requesting user from the recommendation query
+    const users = await User.find({ memberId: { $nin: [...followedUsers, memberId] } }).select('-_id memberId name avi category');
+
+    res.status(200).json({
+      success: true,
+      message: 'Users fetched successfully',
+      users
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: 'Something went wrong', error });
+  }
+};
+
+
+
+const getFollowers = async (req, res) => {
+  try {
+    const { memberId } = req.query;
+
+    const user = await User.findOne({ memberId }).select('-_id followers.memberId followers.name followers.category followers.avi');
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    const followers = user.followers;
+
+    res.status(200).json({
+      success: true,
+      message: 'Followers retrieved successfully',
+      followers
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: 'Something went wrong', error });
+  }
+};
+
+const getFollowing = async (req, res) => {
+  try {
+    const { memberId } = req.query;
+
+    const user = await User.findOne({ memberId }).select('-_id following.memberId following.name following.category following.avi');
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    const following = user.following;
+
+    res.status(200).json({
+      success: true,
+      message: 'Following retrieved successfully',
+      following
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: 'Something went wrong', error });
+  }
+};
+
+
+module.exports = { 
+  deleteUser, 
+  updateUser, 
+  getAllUsers,  
+  getUserProfile, 
+  addCreator,
+  followUser,
+  unfollowUser,
+  recommendUsers,
+  getFollowers,
+  getFollowing
+};

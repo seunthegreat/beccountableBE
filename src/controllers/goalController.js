@@ -3,29 +3,41 @@ const Partner = require('../models/partners');
 
 const createGoal = async (req, res) => {
   try {
-    const { name, memberId } = req.body;
+    const { title, objective, starts, ends, category, memberId,
+      requirements, keyResults, stakeAmount, partnerSchema } = req.body;
 
-    const existingGoal = await Goal.findOne({ name, memberId });
-      if (existingGoal) {
-        return res.status(409).json({
-          success: false,
-          message: 'Goal already exists',
-        });
-      }
+    const existingGoal = await Goal.findOne({ title });
+    if (existingGoal) {
+      return res.status(409).json({
+        success: false,
+        message: 'Goal already exists',
+      });
+    }
 
-    const goal = new Goal(req.body);
-    const savedGoal = await goal.save();
-    res.status(201).json({
-      success: true,
-      message: `New goal was created by ${memberId}`,
-      goal: savedGoal
+    const newGoal = new Goal({
+      memberId,
+      title,
+      objective,
+      starts,
+      ends,
+      category,
+      requirements,
+      keyResults,
+      stakeAmount,
+      partnerSchema
     });
 
+    const savedGoal = await newGoal.save();
+    res.status(201).json({
+      success: true,
+      message: `New goal created was created by ${memberId}`,
+      goal: savedGoal
+    });
   } catch (error) {
-    return res.status(500).json({ 
-      success: false, 
-      message: 'Something went wrong',
-      error: error
+    res.status(500).json({
+      success: false,
+      message: 'Failed to create the goal',
+      error: error.message
     });
   }
 };
@@ -136,7 +148,6 @@ const getGoalsByStatus = async (req, res) => {
     }
 };
   
-
 const updateGoal = async (req, res) => {
   try {
     const { id } = req.params;

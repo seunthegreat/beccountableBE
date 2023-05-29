@@ -49,24 +49,21 @@ const okrSchema = new mongoose.Schema({
 
 const partnerSchema = new mongoose.Schema({
   name: {
-  type: String,
-    required: true
-  },
-  avi: {
     type: String,
-    default: null
+    required: true
   },
   memberId: {
     type: String,
-    default: null
+  },
+  avi: {
+    type: String,
+  },
+  category: {
+    type: String,
   },
   agreed: {
     type: Boolean,
     default: false
-  },
-  bio: {
-    type: String,
-    required: true
   }
 });
 
@@ -78,49 +75,43 @@ const goalSchema = new mongoose.Schema({
     type: String,
     default: null
   },
-  name: {
-    type: String,
-  },
   title: {
     type: String,
     required: true
   },
-  description: {
+  objective: {
     type: String,
+    required: true
   },
-  start: {
+  starts: {
     type: Date,
-    default: Date.now
+    required: true
   },
-  end: {
+  ends: {
     type: Date,
-  },
-  okrs: {
-    type: [okrSchema],
-    default: []
+    required: true
   },
   category: {
     type: String,
-    required: true,
-    enum: ['General', 'Technology', 'Health', 'Career'],
-    default: 'General'
+    required: true
   },
-  createdAt: {
-    type: Date,
-    default: Date.now
+  requirements: {
+    type: [String],
   },
-  stake: {
-    type: String,
-    enum: ['money', 'reputation'],
-  },  
+  keyResults: {
+    type: [String],
+    required: true
+  },
+  stakeAmount: {
+    type: Number,
+    required: true
+  },
   status: {
-    type: String,
-    enum: ['ongoing', 'pending','completed', 'in-review', 'forfeited'] ,
-    default: 'in-review'
+    type: ['drafts','pending', 'ongoing','completed'],
+    default: 'drafts'
   },
-  partner: partnerSchema,
+  partnerSchema: partnerSchema
 });
-
 
 const Goal = mongoose.model('Goal', goalSchema);
 module.exports = Goal;

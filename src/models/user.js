@@ -64,11 +64,43 @@ const userSchema = new mongoose.Schema({
     default: 'free'
   },
   interests: {
-    type: String,
+    type: [String],
   },
   refreshToken: {
     type:String,
-  }
+  }, 
+  category: {
+    type: String,
+    default: 'General'
+  },
+  followers: [{
+    memberId: {
+      type: String,
+      required: true
+    },
+    name: String,
+    category: {
+      type: String,
+      default: 'General'
+    },
+    avi: String
+  }],
+  following: [{
+    memberId: {
+      type: String,
+      required: true
+    },
+    name: String,
+    category: {
+      type: String,
+      default: 'General'
+    },
+    avi: String
+  }],
+  followersCount: { type: Number, default: 0 },
+  followingCount: { type: Number, default: 0 },
+  totalStakes: { type: Number, default: 0 },
+  totalPayouts: { type: Number, default: 0 },
 });
 
 const User = mongoose.model('User', userSchema);
