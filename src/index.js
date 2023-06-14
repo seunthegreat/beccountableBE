@@ -12,7 +12,7 @@ const credentials = require('./middleware/credentials');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const connectDB = require("./config/database"); 
-const PORT = process.env.PORT || 3600;
+const PORT = process.env.PORT;
 const verifyJWT = require("../src/middleware/verifiyJWT");
 
 connectDB(); //--> Connects to the database

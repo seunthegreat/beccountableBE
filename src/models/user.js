@@ -8,29 +8,55 @@ const ROLES_LIST = {
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
   },
   memberId: {
     type: String,
     required: true,
     unique: true
   },
+  firstName:{
+    type: String
+  },
+  lastName: {
+    type: String,
+  },
+  gender: {
+    type: String,
+  },
+  dob: {
+    type: String
+  },
+  avi: {
+    type: String,
+    default: null
+  },
+  socialMediaUrl: {
+    instagram: { type: String, default: null },
+    twitter: { type: String, default: null },
+    LinkedIn: { type: String, default: null },
+  },
+  otp: {
+    type: Number
+  },
+  location: {
+    type: String
+  },
+  interests: {
+    type: [String],
+  },
+  otp: {
+    type: Number
+  },
   username: {
     type: String,
   },
   email: {
     type: String,
-    required: true,
     unique: true,
     lowercase: true
   },
   password: {
     type: String,
-    required: true
-  },
-  avi: {
-    type: String,
-    default: null
   },
   referralCode: {
     type: String,
@@ -58,13 +84,14 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
   subscription: {
     type: String,
     enum: ['free', 'basic', 'premium'],
     default: 'free'
-  },
-  interests: {
-    type: [String],
   },
   refreshToken: {
     type:String,
@@ -101,6 +128,10 @@ const userSchema = new mongoose.Schema({
   followingCount: { type: Number, default: 0 },
   totalStakes: { type: Number, default: 0 },
   totalPayouts: { type: Number, default: 0 },
+  profileProgress: {
+    totalSteps: { type: Number, default: 9 },
+    completedSteps: { type: Number, default: 0 },
+  },
 });
 
 const User = mongoose.model('User', userSchema);
