@@ -6936,3 +6936,7 @@
 20230615	00:15:14	a593aaca-a886-4820-b393-b78eac4d0e76	POST	http://localhost:3000	/auth/get-started
 20230615	00:15:27	42082e75-a3ff-4165-91aa-22b8eb83daf2	OPTIONS	http://localhost:3000	/auth/get-started
 20230615	00:15:27	81bc748e-675c-4872-b51f-0f3a5f202618	POST	http://localhost:3000	/auth/get-started
+20230615	00:16:45	eb9c9252-653d-4731-a9bb-af1a2e4394cc	OPTIONS	http://localhost:3000	/auth/get-started
+20230615	00:16:45	b9cd9486-b6a9-43dc-ad2c-30ddad18b0c0	POST	http://localhost:3000	/auth/get-started
+20230615	00:17:06	92bf2788-25f0-4f00-8c9e-d09aef5d5deb	OPTIONS	http://localhost:3000	/auth/get-started
+20230615	00:17:06	602c24df-8390-4c44-a1ec-23bedde2c5a4	POST	http://localhost:3000	/auth/get-started
