@@ -25,7 +25,7 @@ app.use(credentials)
 
 
 app.use(cors({
-  origin: ['https://lovely-lingerie-dove.cyclic.app'],
+  origin: ['https://lovely-lingerie-dove.cyclic.app', 'https://beccountable-frontend.vercel.app'],
   credentials: true,
 })); //--> Cross Origin Resource Sharing
 app.use(express.urlencoded({ extended: false }));
