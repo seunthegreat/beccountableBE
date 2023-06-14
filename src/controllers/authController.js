@@ -58,6 +58,12 @@ const getStarted = async (req, res) => {
     socialMediaUrl
   } = req.body;
 
+  // Set CORS headers to allow cross-origin requests
+  res.header('Access-Control-Allow-Origin', 'https://beccountable-frontend.vercel.app');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, *');
+
   // Retrieve the email from the request body or the cookie
   const storedEmail = email || req.cookies.email;
   console.log(storedEmail);
