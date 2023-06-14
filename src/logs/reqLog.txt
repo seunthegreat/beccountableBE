@@ -6908,3 +6908,9 @@
 20230614	22:43:12	55d496f1-cc2e-4621-ae07-4e2c8f7ff7b8	POST	http://localhost:3000	/auth/resend-otp
 20230614	22:44:09	39648138-79ee-4799-a9b5-44b39dabe92d	OPTIONS	http://localhost:3000	/auth/verify-otp
 20230614	22:44:09	09e23183-125c-4a99-a6e7-73c2cb2be3cf	POST	http://localhost:3000	/auth/verify-otp
+20230614	23:05:35	907e6b37-55d7-4f0c-b0fd-57dcd592cb37	POST	undefined	/auth/get-started
+20230614	23:07:01	c9736ec5-d018-413b-920c-1329b8e760e1	POST	undefined	/auth/get-started
+20230614	23:29:07	fd086ca1-058a-4e00-be7a-6d288811ecd5	OPTIONS	http://localhost:3000	/auth/get-started
+20230614	23:29:07	5aabecd5-47be-4dd4-beeb-657f2df3fadf	POST	http://localhost:3000	/auth/get-started
+20230614	23:29:50	acbb899c-f781-4f35-a900-ea24d2753a5b	OPTIONS	http://localhost:3000	/auth/get-started
+20230614	23:29:50	62e676a9-5393-4607-96fd-c4095c4c19b8	POST	http://localhost:3000	/auth/get-started
