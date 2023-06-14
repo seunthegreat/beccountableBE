@@ -14,7 +14,7 @@ const corsOptions = {
   crossOriginOpenerPolicy: 'allow-from',
   crossOriginResourcePolicy: 'allow-from',
   exposedHeaders: ['Content-Type'],
-  allowedHeaders: ['Content-Type', '*'],
+  allowedHeaders: ['Content-Type', 'Authorization', '*'], // Include 'Authorization' header
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 };
 
