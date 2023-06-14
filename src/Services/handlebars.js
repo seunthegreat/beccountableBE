@@ -1,9 +1,11 @@
 const nodemailer = require('nodemailer');
 const hbs = require('nodemailer-express-handlebars');
 const dotenv = require('dotenv');
+const path = require('path');
 const smtpTransport = require('nodemailer-smtp-transport');
 dotenv.config();
 const { generateOTP } = require('./otpGenerator');
+
 
 const transporter = nodemailer.createTransport(
   smtpTransport({
@@ -16,8 +18,6 @@ const transporter = nodemailer.createTransport(
   })
 );
 
-const viewsPath = `${__dirname}/../views/templates`;
-
 transporter.use(
   'compile',
   hbs({
@@ -25,7 +25,7 @@ transporter.use(
       extName: '.handlerbars',
       defaultLayout: false,
     },
-    viewPath: viewsPath
+    viewPath: path.resolve('..', './views/templates')
   })
 );
 
@@ -70,5 +70,7 @@ const otp = generateOTP();
 const name = 'Seun';
 
 // sendEmailWithOTP(name, email, otp);
+
+// console.log(path.resolve('..', './views/templates'))
 
 module.exports = { sendEmailWithOTP };
