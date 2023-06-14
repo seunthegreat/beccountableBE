@@ -9,7 +9,8 @@ const corsOptions = {
       }
     },
   optionsSuccessStatus: 200,
-  referrerPolicy: 'no-referrer'
+  referrerPolicy: 'no-referrer',
+  credentials: true
 }
 
 module.exports = corsOptions;
