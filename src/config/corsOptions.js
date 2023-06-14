@@ -1,4 +1,4 @@
-const allowedOrigins = require('./allowedOrigins');
+const allowedOrigins = ['https://example.com'];
 
 const corsOptions = {
   origin: (origin, callback) => {
@@ -10,7 +10,9 @@ const corsOptions = {
     },
   optionsSuccessStatus: 200,
   referrerPolicy: 'no-referrer',
-  credentials: true
-}
+  credentials: true,
+  crossOriginOpenerPolicy: 'allow-from',
+  crossOriginResourcePolicy: 'allow-from'
+};
 
 module.exports = corsOptions;

@@ -6914,3 +6914,4 @@
 20230614	23:29:07	5aabecd5-47be-4dd4-beeb-657f2df3fadf	POST	http://localhost:3000	/auth/get-started
 20230614	23:29:50	acbb899c-f781-4f35-a900-ea24d2753a5b	OPTIONS	http://localhost:3000	/auth/get-started
 20230614	23:29:50	62e676a9-5393-4607-96fd-c4095c4c19b8	POST	http://localhost:3000	/auth/get-started
+20230614	23:52:03	0df32839-9f1c-47de-af70-f8fb3ba0e8c5	POST	undefined	/auth/login
