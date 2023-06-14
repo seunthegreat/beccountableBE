@@ -17,7 +17,7 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization', '*'], // Include 'Authorization' header
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   headers: {
-    'Access-Control-Allow-Origin': 'https://lovely-lingerie-dove.cyclic.app',
+    'Access-Control-Allow-Origin': 'https://beccountable-frontend.vercel.app',
     'Access-Control-Allow-Credentials': 'true',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
     'Access-Control-Allow-Headers': 'Content-Type, *'
