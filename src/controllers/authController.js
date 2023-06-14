@@ -242,8 +242,9 @@ const verifyOTP = async (req, res) => {
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
-  
-    if (user.otp === otp.otp) {
+    
+    console.log(user.otp, otp)
+    if (user.otp === otp) {
       
       user.otp = null;
       user.isVerified = true;

@@ -25,7 +25,7 @@ transporter.use(
       extName: '.handlerbars',
       defaultLayout: false,
     },
-    viewPath: path.resolve('..', './views/templates')
+    viewPath: path.resolve('..', 'src', './views/templates')
   })
 );
 
