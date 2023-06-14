@@ -24,10 +24,7 @@ app.use(logger); //--> custom middleware logger
 app.use(credentials)
 
 
-app.use(cors({
-  origin: ['https://lovely-lingerie-dove.cyclic.app', 'https://beccountable-frontend.vercel.app'],
-  credentials: true,
-})); //--> Cross Origin Resource Sharing
+app.use(cors(corsOptions)); //--> Cross Origin Resource Sharing
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
