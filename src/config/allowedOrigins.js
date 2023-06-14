@@ -8,7 +8,8 @@ const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:3001',
   'https://beccountable-frontend.vercel.app',
-  'https://beccountable-web-service.onrender.com'
+  'https://beccountable-web-service.onrender.com',
+  'https://lovely-lingerie-dove.cyclic.app'
 ];
 
 module.exports = allowedOrigins;
