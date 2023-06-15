@@ -64,8 +64,8 @@ const getStarted = async (req, res) => {
 
   try {
     let existingUser;
-    res.set('Access-Control-Allow-Origin', 'https://lovely-lingerie-dove.cyclic.app');
-    res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    // res.set('Access-Control-Allow-Origin', 'https://lovely-lingerie-dove.cyclic.app');
+    // res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
     // Step one: Create a new user if it doesn't exist
     if (!storedEmail) {
