@@ -227,7 +227,7 @@ const getStarted = async (req, res) => {
       existingUser.otp = otp;
       await existingUser.save();
 
-      sendEmailWithOTP(existingUser.name, storedEmail, otp);
+      sendEmailWithOTP(existingUser.firstName, storedEmail, otp);
 
       // Set the email in an HTTP-only cookie with cross-origin support
         res.cookie("email", storedEmail, {
