@@ -72,7 +72,7 @@ const name = 'Seun';
 
 // sendEmailWithOTP(name, email, otp);
 
-// console.log(path.resolve('..', './views/templates'))
+// console.log(path.join(mainDirectory, 'views', 'templates'))
 
 
 module.exports = { sendEmailWithOTP };
