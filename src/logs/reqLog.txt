@@ -6982,3 +6982,7 @@
 20230615	08:14:24	08088fab-91c0-49f8-8624-663abfc5117d	POST	https://beccountable-frontend.vercel.app	/auth/get-started
 20230615	08:14:41	e33f0795-f5b3-45c1-b960-76ee6050c00d	OPTIONS	https://beccountable-frontend.vercel.app	/auth/get-started
 20230615	08:14:41	68aaee39-cec0-4e84-942e-d58ac4eab1d7	POST	https://beccountable-frontend.vercel.app	/auth/get-started
+20230615	08:17:16	6edca5cc-43c3-4b0b-984c-c5584618ecfd	OPTIONS	https://beccountable-frontend.vercel.app	/auth/get-started
+20230615	08:17:16	49ba80e1-1c7a-4212-8b85-c8fc41a1ec04	POST	https://beccountable-frontend.vercel.app	/auth/get-started
+20230615	08:18:46	583e947d-731d-485e-b05c-5ce0ee093626	OPTIONS	https://beccountable-frontend.vercel.app	/auth/get-started
+20230615	08:18:46	68321506-e398-451a-9beb-71df932f2cf7	POST	https://beccountable-frontend.vercel.app	/auth/get-started
