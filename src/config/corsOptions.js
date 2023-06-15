@@ -11,9 +11,7 @@ const corsOptions = {
   optionsSuccessStatus: 200,
   referrerPolicy: 'no-referrer',
   credentials: true,
-  crossOriginOpenerPolicy: 'allow-from',
-  crossOriginResourcePolicy: 'allow-from',
-  exposedHeaders: ['Content-Type'],
+  exposedHeaders: ['Content-Type', 'Access-Control-Allow-Origin'], // Add 'Access-Control-Allow-Origin' to exposed headers
   allowedHeaders: ['Content-Type', 'Authorization', '*'], // Include 'Authorization' header
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 };
