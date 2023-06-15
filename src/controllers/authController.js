@@ -242,7 +242,19 @@ const getStarted = async (req, res) => {
         email: storedEmail,
         profileProgress: existingUser.profileProgress,
       });
-    }
+    };
+
+    if ( profileProgress.completedSteps === 6 ){
+      sendEmailWithOTP(existingUser.firstName, storedEmail, otp);
+      return res.status(200).json({
+        success: true,
+        message: 'User already exists',
+        email: existingEmail,
+        profileProgress,
+      });
+    } 
+
+    
 
     return res.status(200).json({
       success: true,
