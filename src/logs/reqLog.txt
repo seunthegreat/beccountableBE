@@ -6978,3 +6978,7 @@
 20230615	08:11:48	c72cbdb0-5812-4af5-97d0-90a151de3fac	POST	http://localhost:3000	/auth/verify-otp
 20230615	08:12:23	f535331d-c817-41a0-81df-7446be8cee4f	OPTIONS	http://localhost:3000	/auth/verify-otp
 20230615	08:12:23	201c90f8-5b20-4534-a69d-4bdc6fe91ada	POST	http://localhost:3000	/auth/verify-otp
+20230615	08:14:24	12fc4b57-4215-4a38-87bc-605b88e406b6	OPTIONS	https://beccountable-frontend.vercel.app	/auth/get-started
+20230615	08:14:24	08088fab-91c0-49f8-8624-663abfc5117d	POST	https://beccountable-frontend.vercel.app	/auth/get-started
+20230615	08:14:41	e33f0795-f5b3-45c1-b960-76ee6050c00d	OPTIONS	https://beccountable-frontend.vercel.app	/auth/get-started
+20230615	08:14:41	68aaee39-cec0-4e84-942e-d58ac4eab1d7	POST	https://beccountable-frontend.vercel.app	/auth/get-started
