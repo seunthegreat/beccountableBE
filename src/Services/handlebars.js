@@ -6,6 +6,7 @@ const smtpTransport = require('nodemailer-smtp-transport');
 dotenv.config();
 const { generateOTP } = require('./otpGenerator');
 
+const mainDirectory = path.dirname(require.main.filename);
 
 const transporter = nodemailer.createTransport(
   smtpTransport({
@@ -25,7 +26,7 @@ transporter.use(
       extName: '.handlerbars',
       defaultLayout: false,
     },
-    viewPath: path.resolve('..', 'src', './views/templates')
+    viewPath: path.join(mainDirectory, 'views', 'templates')
   })
 );
 
@@ -44,7 +45,7 @@ function sendEmailWithOTP(name, email, otp) {
   const mailOptions = {
     from: 'beccountable@outlook.com',
     to: email,
-    subject: 'Verfiy your Account',
+    subject: 'Verify your Account',
     template: 'test',
     context: {
       title: 'Verify OTP',
@@ -72,5 +73,6 @@ const name = 'Seun';
 // sendEmailWithOTP(name, email, otp);
 
 // console.log(path.resolve('..', './views/templates'))
+
 
 module.exports = { sendEmailWithOTP };
