@@ -6964,3 +6964,5 @@
 20230615	01:19:27	bb6c85b2-0974-47c5-b6df-0b1dae0cc5bd	POST	undefined	/auth/get-started
 20230615	01:19:48	0bb6ffc0-cb57-413f-8eba-f4c56fcbccc7	POST	undefined	/auth/resend-otp
 20230615	01:21:11	6cce0e5a-f4c3-458d-a3a0-52dd80b329b2	POST	undefined	/auth/resend-otp
+20230615	07:06:58	a99668b9-37ff-48aa-b5cf-b35982f7f487	POST	undefined	/auth/get-started
+20230615	07:07:08	026a3bb2-8dea-4047-b304-d80ffcd8d2d4	POST	undefined	/auth/get-started

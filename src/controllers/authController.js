@@ -89,7 +89,12 @@ const getStarted = async (req, res) => {
         await existingUser.save();
 
         // Set the email in an HTTP-only cookie
-        res.cookie('email', storedEmail, { httpOnly: true, sameSite: 'none', });
+        res.cookie("email", storedEmail, {
+          httpOnly: true,
+          sameSite: "none",
+          secure: true,
+        });
+
 
         return res.status(200).json({
           success: true,
@@ -118,7 +123,12 @@ const getStarted = async (req, res) => {
       existingUser.profileProgress.completedSteps++;
       await existingUser.save();
 
-      res.cookie('email', storedEmail, { httpOnly: true, sameSite: 'none', });
+      res.cookie("email", storedEmail, {
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+      });
+
 
       return res.status(200).json({
         success: true,
@@ -138,7 +148,12 @@ const getStarted = async (req, res) => {
       await existingUser.save();
 
       // Set the email in an HTTP-only cookie with cross-origin support
-      res.cookie('email', storedEmail, { httpOnly: true, sameSite: 'none', });
+      res.cookie("email", storedEmail, {
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+      });
+
 
       return res.status(200).json({
         success: true,
@@ -158,7 +173,12 @@ const getStarted = async (req, res) => {
       await existingUser.save();
 
       // Set the email in an HTTP-only cookie with cross-origin support
-      res.cookie('email', storedEmail, { httpOnly: true, sameSite: 'none' });
+      res.cookie("email", storedEmail, {
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+      });
+
 
       return res.status(200).json({
         success: true,
@@ -179,7 +199,12 @@ const getStarted = async (req, res) => {
       await existingUser.save();
 
       // Set the email in an HTTP-only cookie with cross-origin support
-      res.cookie('email', storedEmail, { httpOnly: true, sameSite: 'none', });
+      res.cookie("email", storedEmail, {
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+      });
+
 
       return res.status(200).json({
         success: true,
@@ -205,7 +230,11 @@ const getStarted = async (req, res) => {
       sendEmailWithOTP(existingUser.name, storedEmail, otp);
 
       // Set the email in an HTTP-only cookie with cross-origin support
-        res.cookie('email', storedEmail, { httpOnly: true, sameSite: 'none'});
+        res.cookie("email", storedEmail, {
+          httpOnly: true,
+          sameSite: "none",
+          secure: true,
+        });
 
       return res.status(200).json({
         success: true,
