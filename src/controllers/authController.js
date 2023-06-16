@@ -60,12 +60,8 @@ const getStarted = async (req, res) => {
 
   // Retrieve the email from the request body or the cookie
   const storedEmail = email || req.cookies.email;
-  console.log(storedEmail);
-
   try {
     let existingUser;
-    // res.set('Access-Control-Allow-Origin', 'https://lovely-lingerie-dove.cyclic.app');
-    // res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
     // Step one: Create a new user if it doesn't exist
     if (!storedEmail) {
@@ -272,8 +268,8 @@ const getStarted = async (req, res) => {
 };
 
 const verifyOTP = async (req, res) => {
-  const { otp } = req.body;
-  const userEmail = req.cookies.email;
+  const { otp, email } = req.body;
+  const userEmail = email || req.cookies.email;
 
   if (!userEmail) {
     return res.status(400).json({ success: false, message: 'Email not found' });
@@ -305,7 +301,7 @@ const verifyOTP = async (req, res) => {
 };
 
 const resendOTP = async (req, res) => {
-  const userEmail = req.cookies.email;
+  const userEmail = email || req.cookies.email;
   const otp = generateOTP();
 
   if (!userEmail) {
