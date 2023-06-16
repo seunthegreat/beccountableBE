@@ -64,11 +64,11 @@ const getStarted = async (req, res) => {
     let existingUser;
 
     // Step one: Create a new user if it doesn't exist
-    if (!storedEmail) {
+    if (!storedEmail && !req.cookies.email) {
       return res.status(400).json({ success: false, message: 'Email is required' });
     }
 
-    existingUser = await User.findOne({ email: storedEmail });
+    existingUser = await User.findOne({ email: storedEmail || req.cookies.email });
 
     if (!existingUser) {
       if (newUser === true) {
@@ -271,25 +271,23 @@ const verifyOTP = async (req, res) => {
   const { otp, email } = req.body;
   const userEmail = email || req.cookies.email;
 
-  if (!userEmail) {
+  if (!userEmail && !req.cookies.email) {
     return res.status(400).json({ success: false, message: 'Email not found' });
   }
 
   try {
-    const user = await User.findOne({ email: userEmail });
+    const user = await User.findOne({ email: userEmail || req.cookies.email });
 
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
     
-    console.log(user.otp, otp)
+    console.log(user.otp, otp);
     if (user.otp === otp) {
-      
       user.otp = null;
       user.isVerified = true;
-      await user.save(); // Save the updated user object
+      await user.save();
 
-      // Perform the required action upon successful OTP verification
       return res.status(200).json({ success: true, message: 'OTP verified successfully' });
     } else {
       return res.status(400).json({ success: false, message: 'Invalid OTP' });
@@ -301,15 +299,15 @@ const verifyOTP = async (req, res) => {
 };
 
 const resendOTP = async (req, res) => {
-  const userEmail = email || req.cookies.email;
+  const userEmail = req.body.email;
   const otp = generateOTP();
 
-  if (!userEmail) {
+  if (!userEmail && !req.cookies.email) {
     return res.status(400).json({ success: false, message: 'Email not found' });
   }
 
   try {
-    const user = await User.findOne({ email: userEmail });
+    const user = await User.findOne({ email: userEmail || req.cookies.email });
 
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
@@ -319,12 +317,12 @@ const resendOTP = async (req, res) => {
     user.otp = otp;
     await user.save();
 
-    return res.status(200).json({success: true, message: `OTP resent successfully to ${userEmail}` });
+    return res.status(200).json({ success: true, message: `OTP resent successfully to ${userEmail}` });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
-}
+};
 
 const handleUserLogin = async (req, res) => {
   try {
