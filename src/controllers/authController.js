@@ -94,7 +94,7 @@ const getStarted = async (req, res) => {
         res.cookie("email", storedEmail, {
           httpOnly: true,
           sameSite: "none",
-          secure: true,
+          secure: false,
         });
 
 
@@ -128,7 +128,7 @@ const getStarted = async (req, res) => {
       res.cookie("email", storedEmail, {
         httpOnly: true,
         sameSite: "none",
-        secure: true,
+        secure: false,
       });
 
 
@@ -153,7 +153,7 @@ const getStarted = async (req, res) => {
       res.cookie("email", storedEmail, {
         httpOnly: true,
         sameSite: "none",
-        secure: true,
+        secure: false,
       });
 
 
@@ -178,7 +178,7 @@ const getStarted = async (req, res) => {
       res.cookie("email", storedEmail, {
         httpOnly: true,
         sameSite: "none",
-        secure: true,
+        secure: false,
       });
 
 
@@ -204,7 +204,7 @@ const getStarted = async (req, res) => {
       res.cookie("email", storedEmail, {
         httpOnly: true,
         sameSite: "none",
-        secure: true,
+        secure: false,
       });
 
 
@@ -235,7 +235,7 @@ const getStarted = async (req, res) => {
         res.cookie("email", storedEmail, {
           httpOnly: true,
           sameSite: "none",
-          secure: true,
+          secure: false,
         });
 
       return res.status(200).json({
