@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "cd src && nodemon index.js"
+    "dev": "cd src && nodemon index.js",
+    "prod": "cd src && node index.js"
   },
   "keywords": [],
   "author": "Seun Abilawon",

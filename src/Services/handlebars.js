@@ -3,18 +3,16 @@ const hbs = require('nodemailer-express-handlebars');
 const dotenv = require('dotenv');
 const path = require('path');
 const smtpTransport = require('nodemailer-smtp-transport');
-dotenv.config();
+dotenv.config({path: '../.env'});
 const { generateOTP } = require('./otpGenerator');
-
-const mainDirectory = path.dirname(require.main.filename);
 
 const transporter = nodemailer.createTransport(
   smtpTransport({
     host: 'smtp.office365.com',
     port: 587,
     auth: {
-      user: 'beccountable@outlook.com',
-      pass: 'success4sure2023'
+      user: process.env.EMAIL_USER_NAME,
+      pass: process.env.EMAIL_PASSWORD
     }
   })
 );
@@ -24,9 +22,10 @@ transporter.use(
   hbs({
     viewEngine: {
       extName: '.handlerbars',
+      partialsDir: path.resolve(__dirname, '../views/templates'),
       defaultLayout: false,
     },
-    viewPath: path.join(mainDirectory, 'views', 'templates')
+    viewPath: path.resolve(__dirname, '../views/templates'),
   })
 );
 
@@ -46,7 +45,7 @@ function sendEmailWithOTP(name, email, otp) {
     from: 'beccountable@outlook.com',
     to: email,
     subject: 'Verify your Account',
-    template: 'test',
+    template: 'verifyOTP',
     context: {
       title: 'Verify OTP',
       name,
@@ -70,9 +69,8 @@ const email = 'seun.thedeveloper@gmail.com';
 const otp = generateOTP();
 const name = 'Seun';
 
-// sendEmailWithOTP(name, email, otp);
+//sendEmailWithOTP(name, email, otp);
 
 // console.log(path.join(mainDirectory, 'views', 'templates'))
-
 
 module.exports = { sendEmailWithOTP };
