@@ -55,10 +55,12 @@ function sendEmailWithOTP(name, email, otp) {
     }
   };
 
+  console.log("Email Address: ",process.env.EMAIL_USER_NAME, 'Path: ', path.resolve(__dirname, '../views/templates'))
+
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log('Error occurred:', error.message);
-      console.log("Email Address: ",process.env.EMAIL_USER_NAME, 'Path: ', path.resolve(__dirname, '../views/templates') )
+      console.log("Email Address: ",process.env.EMAIL_USER_NAME, 'Path: ', path.resolve(__dirname, '../views/templates'))
     } else {
       console.log('Email sent successfully!');
       console.log("Email Address: ",process.env.EMAIL_USER_NAME, 'Path: ', path.resolve(__dirname, '../views/templates'))
