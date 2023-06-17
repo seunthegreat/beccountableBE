@@ -218,6 +218,7 @@ const getStarted = async (req, res) => {
     ) {
 
       const otp = generateOTP();
+      sendEmailWithOTP(existingUser.firstName, storedEmail, otp);
 
       existingUser.avi = avi;
       existingUser.socialMediaUrl = socialMediaUrl;
@@ -225,7 +226,7 @@ const getStarted = async (req, res) => {
       existingUser.otp = otp;
       await existingUser.save();
 
-      sendEmailWithOTP(existingUser.firstName, storedEmail, otp);
+      
 
       // Set the email in an HTTP-only cookie with cross-origin support
         res.cookie("email", storedEmail, {
@@ -245,6 +246,9 @@ const getStarted = async (req, res) => {
     if ( profileProgress.completedSteps === 6 ){
       const otp = generateOTP();
       sendEmailWithOTP(existingUser.firstName, storedEmail, otp);
+      existingUser.otp = otp;
+      await existingUser.save();
+
       return res.status(200).json({
         success: true,
         message: 'User already exists',
