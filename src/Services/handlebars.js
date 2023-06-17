@@ -61,6 +61,7 @@ function sendEmailWithOTP(name, email, otp) {
       console.log("Email Address: ",process.env.EMAIL_USER_NAME, 'Path: ', path.resolve(__dirname, '../views/templates') )
     } else {
       console.log('Email sent successfully!');
+      console.log("Email Address: ",process.env.EMAIL_USER_NAME, 'Path: ', path.resolve(__dirname, '../views/templates'))
     }
   });
 };
