@@ -226,7 +226,6 @@ const getStarted = async (req, res) => {
       existingUser.otp = otp;
       await existingUser.save();
 
-      
 
       // Set the email in an HTTP-only cookie with cross-origin support
         res.cookie("email", storedEmail, {
@@ -316,10 +315,9 @@ const resendOTP = async (req, res) => {
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
-
-    sendEmailWithOTP(user.firstName, userEmail, otp);
     user.otp = otp;
     await user.save();
+    sendEmailWithOTP(user.firstName, userEmail, otp);
 
     return res.status(200).json({ success: true, message: `OTP resent successfully to ${userEmail}` });
   } catch (error) {

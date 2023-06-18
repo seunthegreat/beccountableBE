@@ -96,10 +96,6 @@ const userSchema = new mongoose.Schema({
   refreshToken: {
     type:String,
   }, 
-  category: {
-    type: String,
-    default: 'General'
-  },
   followers: [{
     memberId: {
       type: String,
