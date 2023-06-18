@@ -218,7 +218,7 @@ const getStarted = async (req, res) => {
     ) {
 
       const otp = generateOTP();
-      sendEmailWithOTP(existingUser.firstName, storedEmail, otp);
+      await sendEmailWithOTP(existingUser.firstName, storedEmail, otp);
 
       existingUser.avi = avi;
       existingUser.socialMediaUrl = socialMediaUrl;
@@ -316,9 +316,9 @@ const resendOTP = async (req, res) => {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
     user.otp = otp;
+    await sendEmailWithOTP(user.firstName, userEmail, otp);
     await user.save();
-    sendEmailWithOTP(user.firstName, userEmail, otp);
-
+    
     return res.status(200).json({ success: true, message: `OTP resent successfully to ${userEmail}` });
   } catch (error) {
     console.log(error);

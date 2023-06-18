@@ -7121,3 +7121,4 @@
 20230618	06:57:07	b226d580-decd-4326-be30-75044c8cc7cc	POST	http://localhost:3000	/auth/resend-otp
 20230618	06:57:39	2f48e91b-dc80-4505-b9ec-cd02c470ffb8	OPTIONS	http://localhost:3000	/auth/verify-otp
 20230618	06:57:39	ea2f3bb7-3ac7-4a7a-8b58-141de111a91e	POST	http://localhost:3000	/auth/verify-otp
+20230618	08:02:34	ffe86dad-e0e6-40c5-af30-b3cd308427b6	POST	undefined	/auth/resend-otp

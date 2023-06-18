@@ -5,6 +5,7 @@ const path = require('path');
 const smtpTransport = require('nodemailer-smtp-transport');
 dotenv.config({path: '../.env'});
 const { generateOTP } = require('./otpGenerator');
+const Mailchimp = require('mailchimp');
 
 const transporter = nodemailer.createTransport(
   smtpTransport({
@@ -41,30 +42,30 @@ function generateHashedEmail(email) {
 }
 
 function sendEmailWithOTP(name, email, otp) {
-  const mailOptions = {
-    from: 'beccountable@outlook.com',
-    to: email,
-    subject: 'Verify your Account',
-    template: 'verifyOTP',
-    context: {
-      title: 'Verify OTP',
-      name,
-      hashedEmail: generateHashedEmail(email),
-      heading: 'Welcome to my app',
-      message: `Your OTP is: ${otp}`
-    }
-  };
-
-  console.log("Email Address: ",process.env.EMAIL_USER_NAME, 'Path: ', path.resolve(__dirname, '../views/templates'))
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log('Error occurred:', error.message);
-      console.log("Email Address: ",process.env.EMAIL_USER_NAME, 'Path: ', path.resolve(__dirname, '../views/templates'))
-    } else {
-      console.log('Email sent successfully!');
-      console.log("Email Address: ",process.env.EMAIL_USER_NAME, 'Path: ', path.resolve(__dirname, '../views/templates'))
-    }
+  return new Promise((resolve, reject) => {
+    const mailOptions = {
+      from: 'beccountable@outlook.com',
+      to: email,
+      subject: 'Verify your Account',
+      template: 'verifyOTP',
+      context: {
+        title: 'Verify OTP',
+        name,
+        hashedEmail: generateHashedEmail(email),
+        heading: 'Welcome to my app',
+        message: `Your OTP is: ${otp}`
+      }
+    };
+  
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log('Error occurred:', error.message);
+        reject(error);
+      } else {
+        console.log('Email sent successfully!');
+        resolve(info);
+      }
+    });
   });
 };
 
